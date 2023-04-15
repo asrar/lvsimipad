@@ -197,7 +197,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     Container(
                         color: Colors.black,
-                        width: 240,
+                        width: 1030,
                         child: StepLineDefault()),
                     SizedBox(
                       width: 2,
