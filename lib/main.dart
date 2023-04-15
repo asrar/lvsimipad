@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:lvsimipad/real_time_line_chart.dart';
 
@@ -7,7 +8,9 @@ import 'animation_spline_chart_blue.dart';
 import 'animation_spline_chart_yellow.dart';
 import 'default_step_line_chart.dart';
 
-void main() {
+ void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -90,127 +93,129 @@ class _MyHomePageState extends State<MyHomePage> {
         actions: [Image.asset(AppImages.cmp_logo)],
 
       ),
-      body: Column(
-        children: [
-          Container(
-              height: 160,
-              color: Colors.black,
-              child: Row(
-                children: [
-                  Container(
-                      color: Colors.black, width: 1050, child: LiveLineChart()),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Container(
-                      width: 60,
-                      //   color: Colors.black,
-                      child: Text(
-                        "HR",
-                        style: (TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 36,
-                            color: Colors.green)),
-                      )),
-                ],
-              )),
-          Container(
-              height: 120,
-              color: Colors.black,
-              child: Row(
-                children: [
-                  Container(
-                      color: Colors.black,
-                      width: 1050,
-                      child: AnimationSplineDefault()),
-                  SizedBox(
-                    width: 2,
-                  ),
-                  Container(
-                      width: 80,
-                      //   color: Colors.black,
-                      child: Text(
-                        "ADP",
-                        style: (TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 36,
-                            color: Colors.green)),
-                      )),
-                ],
-              )),
-          Container(
-              height: 120,
-              color: Colors.black,
-              child: Row(
-                children: [
-                  Container(
-                      color: Colors.black,
-                      width: 1050,
-                      child: AnimationSplineDefaultBlue()),
-                  SizedBox(
-                    width: 2,
-                  ),
-                  Container(
-                      width: 80,
-                      //   color: Colors.black,
-                      child: Text(
-                        "LV",
-                        style: (TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 36,
-                            color: Colors.green)),
-                      )),
-                ],
-              )),
-          Container(
-              height: 120,
-              color: Colors.black,
-              child: Row(
-                children: [
-                  Container(
-                      color: Colors.black,
-                      width: 1030,
-                      child: AnimationSplineDefaultYellow()),
-                  SizedBox(
-                    width: 2,
-                  ),
-                  Container(
-                      width: 100,
-                      //   color: Colors.black,
-                      child: Text(
-                        "SPO2",
-                        style: (TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 36,
-                            color: Colors.green)),
-                      )),
-                ],
-              )),
-          Container(
-              height: 140,
-              color: Colors.black,
-              child: Row(
-                children: [
-                  Container(
-                      color: Colors.black,
-                      width: 1040,
-                      child: StepLineDefault()),
-                  SizedBox(
-                    width: 2,
-                  ),
-                  Container(
-                      width: 90,
-                      //   color: Colors.black,
-                      child: Text(
-                        "Resp",
-                        style: (TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 36,
-                            color: Colors.green)),
-                      )),
-                ],
-              )),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+                height: 160,
+                color: Colors.black,
+                child: Row(
+                  children: [
+                    Container(
+                        color: Colors.black, width: 1050, child: LiveLineChart()),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Container(
+                        width: 60,
+                        //   color: Colors.black,
+                        child: Text(
+                          "HR",
+                          style: (TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 36,
+                              color: Colors.green)),
+                        )),
+                  ],
+                )),
+            Container(
+                height: 120,
+                color: Colors.black,
+                child: Row(
+                  children: [
+                    Container(
+                        color: Colors.black,
+                        width: 1050,
+                        child: AnimationSplineDefault()),
+                    SizedBox(
+                      width: 2,
+                    ),
+                    Container(
+                        width: 80,
+                        //   color: Colors.black,
+                        child: Text(
+                          "ADP",
+                          style: (TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 36,
+                              color: Colors.green)),
+                        )),
+                  ],
+                )),
+            Container(
+                height: 120,
+                color: Colors.black,
+                child: Row(
+                  children: [
+                    Container(
+                        color: Colors.black,
+                        width: 1030,
+                        child: AnimationSplineDefaultBlue()),
+                    SizedBox(
+                      width: 2,
+                    ),
+                    Container(
+                        width: 80,
+                        //   color: Colors.black,
+                        child: Text(
+                          "LV",
+                          style: (TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 36,
+                              color: Colors.green)),
+                        )),
+                  ],
+                )),
+            Container(
+                height: 120,
+                color: Colors.black,
+                child: Row(
+                  children: [
+                    Container(
+                        color: Colors.black,
+                        width:1040,
+                        child: AnimationSplineDefaultYellow()),
+                    SizedBox(
+                      width: 2,
+                    ),
+                    Container(
+                        width: 100,
+                        //   color: Colors.black,
+                        child: Text(
+                          "SPO2",
+                          style: (TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 36,
+                              color: Colors.green)),
+                        )),
+                  ],
+                )),
+            Container(
+                height: 140,
+                color: Colors.black,
+                child: Row(
+                  children: [
+                    Container(
+                        color: Colors.black,
+                        width: 240,
+                        child: StepLineDefault()),
+                    SizedBox(
+                      width: 2,
+                    ),
+                    Container(
+                        width: 90,
+                        //   color: Colors.black,
+                        child: Text(
+                          "Resp",
+                          style: (TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 36,
+                              color: Colors.green)),
+                        )),
+                  ],
+                )),
+          ],
+        ),
       ),
       // This trailing comma makes auto-formatting nicer for build methods.
     );

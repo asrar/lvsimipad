@@ -2,6 +2,7 @@
 import 'dart:async';
 import 'dart:math' as math;
 
+import 'package:firebase_database/firebase_database.dart';
 /// Package imports
 import 'package:flutter/material.dart';
 
@@ -22,6 +23,8 @@ class LiveLineChart extends SampleView {
 
 /// State class of the realtime line chart.
 class _LiveLineChartState extends SampleViewState {
+  final dref = FirebaseDatabase.instance.ref('UsersData');
+
   _LiveLineChartState() {
     timer =
         Timer.periodic(const Duration(milliseconds: 100), _updateDataSource);
@@ -64,6 +67,7 @@ class _LiveLineChartState extends SampleViewState {
       _ChartData(17, 72),
       _ChartData(18, 99),
     ];
+    dref;
     super.initState();
   }
 
@@ -73,41 +77,54 @@ class _LiveLineChartState extends SampleViewState {
   }
 
   /// Returns the realtime Cartesian line chart.
-  SfCartesianChart _buildLiveLineChart() {
-    return SfCartesianChart(
-      backgroundColor: Colors.black,
-        plotAreaBorderWidth: 0,
+  StreamBuilder _buildLiveLineChart() {
+    return StreamBuilder(
+      stream: dref.onValue,
+      builder: (context, snapshot) {
+        Map<dynamic, dynamic> map =
+        snapshot.data?.snapshot.value as dynamic;
+        List<dynamic> list = [];
+        list.clear();
+        list = map.values.toList();
+        print('This is List${list.toString()}');
+        /// This is Example how to access the specific index
+        ///list[1]['readings']['heart_rate'].toString() etc.
+        return SfCartesianChart(
+            backgroundColor: Colors.black,
+            plotAreaBorderWidth: 0,
 
-        primaryXAxis:
+            primaryXAxis:
             NumericAxis(
                 isVisible: false,
 
-              //Hide the gridlines of x-axis
+                //Hide the gridlines of x-axis
                 majorGridLines: MajorGridLines(width: 0),
                 //Hide the axis line of x-axis
                 axisLine: AxisLine(width: 0),
                 majorTickLines: const MajorTickLines(size: 0)
             ),
-        primaryYAxis: NumericAxis(
-            isVisible: false,
-            majorGridLines: MajorGridLines(width: 0),
-            //Hide the axis line of x-axis
-            axisLine: AxisLine(width: 0),
+            primaryYAxis: NumericAxis(
+                isVisible: false,
+                majorGridLines: MajorGridLines(width: 0),
+                //Hide the axis line of x-axis
+                axisLine: AxisLine(width: 0),
 
-        //    axisLine: const AxisLine(width: 0),
-            majorTickLines: const MajorTickLines(size: 0)),
-        series: <LineSeries<_ChartData, int>>[
-          LineSeries<_ChartData, int>(
-            onRendererCreated: (ChartSeriesController controller) {
-              _chartSeriesController = controller;
-            },
-            dataSource: chartData!,
-            color: Colors.green,
-            xValueMapper: (_ChartData sales, _) => sales.country,
-            yValueMapper: (_ChartData sales, _) => sales.sales,
-            animationDuration: 0,
-          )
-        ]);
+                //    axisLine: const AxisLine(width: 0),
+                majorTickLines: const MajorTickLines(size: 0)),
+            series: <LineSeries<_ChartData, int>>[
+              LineSeries<_ChartData, int>(
+                onRendererCreated: (ChartSeriesController controller) {
+                  _chartSeriesController = controller;
+                },
+                dataSource: chartData!,
+                color: Colors.green,
+                xValueMapper: (_ChartData sales, _) => sales.country,
+                yValueMapper: (_ChartData sales, _) => sales.sales,
+                animationDuration: 0,
+              )
+            ]) ;
+      },
+    );
   }
 
   ///Continously updating the data source based on timer

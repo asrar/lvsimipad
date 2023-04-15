@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "79675574577",
+    "firebase_url": "https://esptest-4581f-default-rtdb.firebaseio.com",
+    "project_id": "esptest-4581f",
+    "storage_bucket": "esptest-4581f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:79675574577:android:d55752d6adde0a7e6b8810",
+        "android_client_info": {
+          "package_name": "com.adilyousuf.LVSim"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "79675574577-6plci6kduscavji9sdhjkf65ogktqpn8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAPdRr2niH5T-9AODb5ErjrhjbYVKg38w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "79675574577-6plci6kduscavji9sdhjkf65ogktqpn8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "79675574577-5e6nclok2q3dg1p69232j9rbn80dedvb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.adilyousuf.LVSim"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
