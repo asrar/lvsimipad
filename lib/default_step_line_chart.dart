@@ -10,7 +10,10 @@ import 'sample_view.dart';
 /// Renders the default stepline chart sample.
 class StepLineDefault extends SampleView {
   /// Creates the default step line sample.
-  const StepLineDefault() : super();
+  /// Creates the realtime line chart sample.
+  final Function() refreshParent;
+  const StepLineDefault( {required this.refreshParent}) : super(refreshParent: refreshParent);
+
 
   @override
   _StepLineDefaultState createState() => _StepLineDefaultState();

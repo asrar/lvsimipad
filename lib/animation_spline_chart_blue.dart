@@ -14,7 +14,8 @@ import 'sample_view.dart';
 /// Renders the spline chart sample with dynamically updated data points.
 class AnimationSplineDefaultBlue extends SampleView {
   /// Renders the spline chart sample with dynamically updated data points.
-  const AnimationSplineDefaultBlue() : super();
+  final Function() refreshParent;
+  const AnimationSplineDefaultBlue( {required this.refreshParent}) : super(refreshParent: refreshParent);
 
   @override
   _AnimationSplineDefaultBlueState createState() => _AnimationSplineDefaultBlueState();

@@ -1,7 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:lvsimipad/real_time_line_chart.dart';
-
+import 'package:lvsimipad/real_time_line_chart2.dart';
+import 'package:lvsimipad/real_time_line_chart3.dart';
+import 'package:lvsimipad/real_time_line_chart4.dart';
+import 'AppLayer/Overseer.dart';
+import 'AppLayer/Provider.dart' as pro;
 import 'Utils/AppImages.dart';
 import 'animation_spline_chart.dart';
 import 'animation_spline_chart_blue.dart';
@@ -81,7 +85,9 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return Scaffold(
+    return pro.Provider(
+        data: Overseer(),
+        child: Scaffold(
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
@@ -97,96 +103,72 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           children: [
             Container(
-                height: 160,
+                height: 175,
                 color: Colors.black,
                 child: Row(
                   children: [
                     Container(
-                        color: Colors.black, width: 1050, child: LiveLineChart()),
+                        color: Colors.black, width: 1040, child: LiveLineChart(refreshParent: refresh)),
                     SizedBox(
-                      width: 20,
+                      width: 10,
                     ),
                     Container(
-                        width: 60,
+                        width: 70,
                         //   color: Colors.black,
-                        child: Text(
-                          "HR",
-                          style: (TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 36,
-                              color: Colors.green)),
+                        child: Column(
+                          children: [
+                            Text(
+                              "HR",
+                              style: (TextStyle(
+                                  fontWeight: FontWeight.normal,
+
+                                  fontSize: 16,
+                                  color: Colors.yellow)),
+                            ),
+                            Text(
+                              "${Overseer.HR}",
+                              style: (TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 36,
+                                  color: Colors.green)),
+                            ),
+                          ],
                         )),
                   ],
                 )),
             Container(
-                height: 120,
+                height: 135,
                 color: Colors.black,
                 child: Row(
                   children: [
                     Container(
                         color: Colors.black,
                         width: 1050,
-                        child: AnimationSplineDefault()),
+                        child: LiveLineChart2(refreshParent: refresh2,)),
                     SizedBox(
                       width: 2,
                     ),
                     Container(
                         width: 80,
                         //   color: Colors.black,
-                        child: Text(
-                          "ADP",
-                          style: (TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 36,
-                              color: Colors.green)),
-                        )),
-                  ],
-                )),
-            Container(
-                height: 120,
-                color: Colors.black,
-                child: Row(
-                  children: [
-                    Container(
-                        color: Colors.black,
-                        width: 1030,
-                        child: AnimationSplineDefaultBlue()),
-                    SizedBox(
-                      width: 2,
-                    ),
-                    Container(
-                        width: 80,
-                        //   color: Colors.black,
-                        child: Text(
-                          "LV",
-                          style: (TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 36,
-                              color: Colors.green)),
-                        )),
-                  ],
-                )),
-            Container(
-                height: 120,
-                color: Colors.black,
-                child: Row(
-                  children: [
-                    Container(
-                        color: Colors.black,
-                        width:1040,
-                        child: AnimationSplineDefaultYellow()),
-                    SizedBox(
-                      width: 2,
-                    ),
-                    Container(
-                        width: 100,
-                        //   color: Colors.black,
-                        child: Text(
-                          "SPO2",
-                          style: (TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 36,
-                              color: Colors.green)),
+                        child: Column(
+                          children: [
+                            Text(
+                              "${Overseer.SPO2}",
+                              style: (TextStyle(
+                                  fontWeight: FontWeight.normal,
+
+                                  fontSize: 16,
+                                  color: Colors.yellow)),
+                            ),
+                            Text(
+                              "${Overseer.SPO2}",
+                              style: (TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 36,
+                                  color: Colors.green)),
+                            ),
+                          ],
                         )),
                   ],
                 )),
@@ -197,20 +179,92 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     Container(
                         color: Colors.black,
-                        width: 1040,
-                        child: StepLineDefault()),
+                        width: 1030,
+                        child: LiveLineChart3(refreshParent: refresh3,)),
                     SizedBox(
                       width: 2,
                     ),
                     Container(
                         width: 90,
                         //   color: Colors.black,
-                        child: Text(
-                          "Resp",
-                          style: (TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 36,
-                              color: Colors.green)),
+                        child: Column(
+                          children: [
+                            Text(
+                              "${Overseer.ABP_high}/${Overseer.ABP_low}",
+                              style: (TextStyle(
+                                  fontWeight: FontWeight.normal,
+
+                                  fontSize: 16,
+                                  color: Colors.yellow)),
+                            ),
+                            Text(
+                              "${Overseer.ABP_low}/${Overseer.ABP_high}",
+                              style: (TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 30,
+                                  color: Colors.green)),
+                            ),
+                          ],
+                        )),
+                  ],
+                )),
+            // Container(
+            //     height: 120,
+            //     color: Colors.black,
+            //     child: Row(
+            //       children: [
+            //         Container(
+            //             color: Colors.black,
+            //             width:1040,
+            //             child: AnimationSplineDefaultYellow()),
+            //         SizedBox(
+            //           width: 2,
+            //         ),
+            //         Container(
+            //             width: 100,
+            //             //   color: Colors.black,
+            //             child: Text(
+            //               "SPO2",
+            //               style: (TextStyle(
+            //                   fontWeight: FontWeight.w500,
+            //                   fontSize: 36,
+            //                   color: Colors.green)),
+            //             )),
+            //       ],
+            //     )),
+            Container(
+                height: 215,
+                color: Colors.black,
+                child: Row(
+                  children: [
+                    Container(
+                        color: Colors.black,
+                        width: 1040,
+                        child: LiveLineChart4(refreshParent: refresh4,)),
+                    SizedBox(
+                      width: 2,
+                    ),
+                    Container(
+                        width: 90,
+                        //   color: Colors.black,
+                        child: Column(
+                          children: [
+                            Text(
+                              "etCO2",
+                              style: (TextStyle(
+                                  fontWeight: FontWeight.normal,
+
+                                  fontSize: 16,
+                                  color: Colors.yellow)),
+                            ),
+                            Text(
+                              "${Overseer.RESP}",
+                              style: (TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 36,
+                                  color: Colors.green)),
+                            ),
+                          ],
                         )),
                   ],
                 )),
@@ -218,6 +272,54 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       // This trailing comma makes auto-formatting nicer for build methods.
-    );
+    ));
+  }
+
+  refresh() {
+
+      print("setting state only for activity Log  at");
+
+      setState(() {
+        print("refresh 1 called");
+      });
+
+  }
+  refresh2() {
+
+    print("setting state only for activity Log  at");
+
+    setState(() {
+      print("refresh 2 called");
+    });
+
+  }
+  refresh3() {
+
+    print("setting state only for activity Log  at");
+
+    setState(() {
+      print("refresh 3 called");
+    });
+
+  }
+
+  refresh4() {
+
+    print("setting state only for activity Log  at");
+
+    setState(() {
+      print("refresh 3 called");
+    });
+
+  }
+
+  refreshStepLine() {
+
+    print("setting state only for activity Log  at");
+
+    setState(() {
+      print("refreshStepLine  3 called");
+    });
+
   }
 }

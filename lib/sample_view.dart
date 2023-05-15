@@ -8,8 +8,10 @@ import 'model.dart';
 
 /// Base class of the sample's stateful widget class
 abstract class SampleView extends StatefulWidget {
+  final Function() refreshParent;
+
   /// base class constructor of sample's stateful widget class
-  const SampleView({Key? key}) : super(key: key);
+  const SampleView({required this.refreshParent,Key? key}) : super(key: key);
 }
 
 /// Base class of the sample's state class
@@ -43,7 +45,9 @@ abstract class SampleViewState<T extends SampleView> extends State<T> {
 /// Base class of the localization sample's stateful widget class
 class LocalizationSampleView extends SampleView {
   /// base class constructor of sample's stateful widget class
-  const LocalizationSampleView({Key? key}) : super(key: key);
+  ///
+  final Function() refreshParent;
+  const LocalizationSampleView({required this.refreshParent,Key? key}) : super( refreshParent:refreshParent,key: key);
 
   @override
   State<StatefulWidget> createState() => LocalizationSampleViewState();
@@ -182,7 +186,8 @@ class LocalizationSampleViewState<T extends LocalizationSampleView>
 /// Base class of the directionality sample's stateful widget class
 class DirectionalitySampleView extends LocalizationSampleView {
   /// base class constructor of sample's stateful widget class
-  const DirectionalitySampleView({Key? key}) : super(key: key);
+  final Function() refreshParent;
+  const DirectionalitySampleView({required this.refreshParent,Key? key}) : super(refreshParent:refreshParent,key: key);
 }
 
 /// Base class of the directionality sample's state class
