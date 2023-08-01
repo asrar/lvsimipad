@@ -151,16 +151,19 @@ class _LiveLineChartState extends SampleViewState {
         list = map.values.toList();
         
         Map mm = list[1];
-        print("----mm value are >>> ${mm.values.toString()}");
-        print("----mm value are length >>> ${mm.values.length}");
+        print("----mm value are >>> okkkkk ${mm.values.toString()}");
+        print("----mm value are length >>> okkkkk  ${mm.values.length}");
         var iter = mm.values.iterator; // get the iterator
 
 
         while (iter.moveNext()) {
+          print("at first");
           // while there is next element
+
           Map values = iter.current;
+          print("at second");
           values.forEach((key, value) {
-            print("iter current heart_rate > $key *****  $value ");
+            print(">>>>>>>>iter current heart_rate > $key *****  $value ");
             if(key.toString().contains("heart_rate")){
               heartRate = value;
             }
@@ -418,6 +421,9 @@ class _LiveLineChartState extends SampleViewState {
         print("***************************** yes *********************");
         print("index>  ${index} > ${time} £ is removing at ofo ${chartData!.length - 1}");
         chartData!.removeAt(0);
+       // chartData!.removeAt(1);
+        //chartData!.removeAt(2);
+
         _chartSeriesController?.updateDataSource(
 
           removedDataIndexes: <int>[0],
