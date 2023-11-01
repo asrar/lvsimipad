@@ -27,17 +27,18 @@ class LiveLineChart3 extends SampleView {
 class _LiveLineChart3State extends SampleViewState {
   final dref = FirebaseDatabase.instance.ref('UsersData');
 
+
   double time=1;
   int indexoffset = 0;
   int index = 0;
   List<dynamic> listIndex =  List.empty(growable: true);
-  List list = [50,80,65,110,55,50];
+  List list = [55,50,110,85,80,65,];
   List list1 = [70,70,70,120,70,70];
   DateTime dt = DateTime(2022, 12, 10, 4, 05,1);
   int ii=0;
   _LiveLineChart3State() {
     timer =
-        Timer.periodic(Duration(milliseconds: 200), _updateDataSource);
+        Timer.periodic(const Duration(milliseconds: 200), _updateDataSource);
   }
 
   Timer? timer;
@@ -102,7 +103,6 @@ class _LiveLineChart3State extends SampleViewState {
         return SfCartesianChart(
             backgroundColor: Colors.black,
             plotAreaBorderWidth: 0,
-
             primaryXAxis: DateTimeAxis(
                 isVisible: true,
                 minimum: DateTime(2022, 12, 10, 4, 05,01),
@@ -136,8 +136,8 @@ class _LiveLineChart3State extends SampleViewState {
 
                 //    axisLine: const AxisLine(width: 0),
                 majorTickLines: const MajorTickLines(size: 0)),
-            series: <LineSeries<_ChartData, DateTime>>[
-              LineSeries<_ChartData, DateTime>(
+            series: <ChartSeries<_ChartData, DateTime>>[
+              SplineSeries<_ChartData, DateTime>(
                 onRendererCreated: (ChartSeriesController controller) {
                   _chartSeriesController = controller;
                 },

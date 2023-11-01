@@ -1,9 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lvsimipad/real_time_line_chart.dart';
 import 'package:lvsimipad/real_time_line_chart2.dart';
 import 'package:lvsimipad/real_time_line_chart3.dart';
 import 'package:lvsimipad/real_time_line_chart4.dart';
+import 'package:lvsimipad/real_time_line_chart5.dart';
 import 'AppLayer/Overseer.dart';
 import 'AppLayer/Provider.dart' as pro;
 import 'Utils/AppImages.dart';
@@ -15,6 +17,7 @@ import 'default_step_line_chart.dart';
  void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
   runApp(const MyApp());
 }
 
@@ -79,12 +82,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return pro.Provider(
         data: Overseer(),
         child: Scaffold(
@@ -107,9 +104,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: Colors.black,
                 child: Row(
                   children: [
-                    Container(
-                        color: Colors.black, width: 1040, child: LiveLineChart(refreshParent: refresh)),
-                    SizedBox(
+                    Expanded(
+                      child: Container(
+                          color: Colors.black, width: double.infinity, child: LiveLineChart(refreshParent: refresh)),
+                    ),
+                    const SizedBox(
                       width: 10,
                     ),
                     Container(
@@ -117,7 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         //   color: Colors.black,
                         child: Column(
                           children: [
-                            Text(
+                            const Text(
                               "HR",
                               style: (TextStyle(
                                   fontWeight: FontWeight.normal,
@@ -127,9 +126,16 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                             Text(
                               "${Overseer.HR}",
-                              style: (TextStyle(
+                              style: (const TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 36,
+                                  color: Colors.green)),
+                            ),
+                            Text(
+                              "${Overseer.HR_speedTime}",
+                              style: (const TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 22,
                                   color: Colors.green)),
                             ),
                           ],
@@ -141,11 +147,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: Colors.black,
                 child: Row(
                   children: [
-                    Container(
-                        color: Colors.black,
-                        width: 1050,
-                        child: LiveLineChart2(refreshParent: refresh2,)),
-                    SizedBox(
+                    Expanded(
+                      child: Container(
+                          color: Colors.black,
+                          width: double.infinity,
+                          child: LiveLineChart2(refreshParent: refresh2,)),
+                    ),
+                    const SizedBox(
                       width: 2,
                     ),
                     Container(
@@ -155,7 +163,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           children: [
                             Text(
                               "${Overseer.SPO2}",
-                              style: (TextStyle(
+                              style: (const TextStyle(
                                   fontWeight: FontWeight.normal,
 
                                   fontSize: 16,
@@ -163,7 +171,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                             Text(
                               "${Overseer.SPO2}",
-                              style: (TextStyle(
+                              style: (const TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 36,
                                   color: Colors.green)),
@@ -177,11 +185,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: Colors.black,
                 child: Row(
                   children: [
-                    Container(
-                        color: Colors.black,
-                        width: 1030,
-                        child: LiveLineChart3(refreshParent: refresh3,)),
-                    SizedBox(
+                    Expanded(
+                      child: Container(
+                          color: Colors.black,
+                          width: double.infinity,
+                          child: LiveLineChart3(refreshParent: refresh3,)),
+                    ),
+                    const SizedBox(
                       width: 2,
                     ),
                     Container(
@@ -191,7 +201,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           children: [
                             Text(
                               "${Overseer.ABP_high}/${Overseer.ABP_low}",
-                              style: (TextStyle(
+                              style: (const TextStyle(
                                   fontWeight: FontWeight.normal,
 
                                   fontSize: 16,
@@ -199,6 +209,45 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                             Text(
                               "${Overseer.ABP_low}/${Overseer.ABP_high}",
+                              style: (const TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 30,
+                                  color: Colors.green)),
+                            ),
+                          ],
+                        )),
+                  ],
+                )),
+            Container(
+                height: 140,
+                color: Colors.black,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                          color: Colors.black,
+                          width: double.infinity,
+                          child: LiveLineChart5(refreshParent: refresh5,)),
+                    ),
+                    const SizedBox(
+                      width: 2,
+                    ),
+                    Container(
+                        width: 90,
+                        //   color: Colors.black,
+                        child:  Column(
+                          children: [
+                            const Text(
+                              'Lvp',
+                              // "${Overseer.ABP_high}/${Overseer.ABP_low}",
+                              style: (TextStyle(
+                                  fontWeight: FontWeight.normal,
+
+                                  fontSize: 16,
+                                  color: Colors.yellow)),
+                            ),
+                            const Text('Lvp',
+                              // "${Overseer.ABP_low}/${Overseer.ABP_high}",
                               style: (TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 30,
@@ -208,40 +257,18 @@ class _MyHomePageState extends State<MyHomePage> {
                         )),
                   ],
                 )),
-            // Container(
-            //     height: 120,
-            //     color: Colors.black,
-            //     child: Row(
-            //       children: [
-            //         Container(
-            //             color: Colors.black,
-            //             width:1040,
-            //             child: AnimationSplineDefaultYellow()),
-            //         SizedBox(
-            //           width: 2,
-            //         ),
-            //         Container(
-            //             width: 100,
-            //             //   color: Colors.black,
-            //             child: Text(
-            //               "SPO2",
-            //               style: (TextStyle(
-            //                   fontWeight: FontWeight.w500,
-            //                   fontSize: 36,
-            //                   color: Colors.green)),
-            //             )),
-            //       ],
-            //     )),
             Container(
                 height: 215,
                 color: Colors.black,
                 child: Row(
                   children: [
-                    Container(
-                        color: Colors.black,
-                        width: 1040,
-                        child: LiveLineChart4(refreshParent: refresh4,)),
-                    SizedBox(
+                    Expanded(
+                      child: Container(
+                          color: Colors.black,
+                          width: double.infinity,
+                          child: LiveLineChart4(refreshParent: refresh4,)),
+                    ),
+                    const SizedBox(
                       width: 2,
                     ),
                     Container(
@@ -249,7 +276,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         //   color: Colors.black,
                         child: Column(
                           children: [
-                            Text(
+                            const Text(
                               "etCO2",
                               style: (TextStyle(
                                   fontWeight: FontWeight.normal,
@@ -259,7 +286,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                             Text(
                               "${Overseer.RESP}",
-                              style: (TextStyle(
+                              style: (const TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 36,
                                   color: Colors.green)),
@@ -285,13 +312,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   }
   refresh2() {
-
     print("setting state only for activity Log  at");
-
     setState(() {
       print("refresh 2 called");
     });
-
   }
   refresh3() {
 
@@ -302,7 +326,15 @@ class _MyHomePageState extends State<MyHomePage> {
     });
 
   }
+  refresh5() {
 
+    print("setting state only for activity Log  at");
+
+    setState(() {
+      print("refresh 5 called");
+    });
+
+  }
   refresh4() {
 
     print("setting state only for activity Log  at");
@@ -312,6 +344,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
 
   }
+
 
   refreshStepLine() {
 

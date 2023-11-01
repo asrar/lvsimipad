@@ -14,17 +14,17 @@ import 'AppLayer/Overseer.dart';
 import 'sample_view.dart';
 
 /// Renders the realtime line chart sample.
-class LiveLineChart2 extends SampleView {
+class LiveLineChart5 extends SampleView {
   /// Creates the realtime line chart sample.
   final Function() refreshParent;
-  const LiveLineChart2( {required this.refreshParent}) : super(refreshParent: refreshParent);
+  const LiveLineChart5( {required this.refreshParent}) : super(refreshParent: refreshParent);
 
   @override
-  _LiveLineChart2State createState() => _LiveLineChart2State();
+  _LiveLineChart5State createState() => _LiveLineChart5State();
 }
 
 /// State class of the realtime line chart.
-class _LiveLineChart2State extends SampleViewState {
+class _LiveLineChart5State extends SampleViewState {
   final dref = FirebaseDatabase.instance.ref('UsersData');
 
   double time=1;
@@ -32,21 +32,18 @@ class _LiveLineChart2State extends SampleViewState {
   int index = 0;
   int spo2 = 0;
   List<dynamic> listIndex =  List.empty(growable: true);
-  List list = [80,50,130,90,80,50];
-  List list1 = [80,50,80,50,80,50];
+  List list = [80, 90, 75, 70, 78, 76, 73];
+  List list1 = [80, 90, 75, 70, 78, 76, 73];
   DateTime dt = DateTime(2022, 12, 10, 4, 05,1);
   int ii=0;
-  _LiveLineChart2State() {
+  _LiveLineChart5State() {
     timer =
-        Timer.periodic( Duration(milliseconds: Overseer.HR_speedTime+200), _updateDataSource);
+        Timer.periodic(const Duration(milliseconds: 400), _updateDataSource);
   }
 
   Timer? timer;
 
   List<_ChartData>? chartData;
-  //late int count;
-  ChartSeriesController? _chartSeriesController;
-
   @override
   void dispose() {
     timer?.cancel();
@@ -83,13 +80,16 @@ class _LiveLineChart2State extends SampleViewState {
     super.initState();
   }
 
+  //late int count;
+  ChartSeriesController? _chartSeriesController;
+
   @override
   Widget build(BuildContext context) {
-    return _buildLiveLineChart2();
+    return _buildLiveLineChart5();
   }
 
   /// Returns the realtime Cartesian line chart.
-  StreamBuilder _buildLiveLineChart2() {
+  StreamBuilder _buildLiveLineChart5() {
     return StreamBuilder(
       stream: dref.onValue,
       builder: (context, snapshot) {
@@ -114,6 +114,7 @@ class _LiveLineChart2State extends SampleViewState {
         return SfCartesianChart(
             backgroundColor: Colors.black,
             plotAreaBorderWidth: 0,
+
             primaryXAxis: DateTimeAxis(
                 isVisible: true,
                 minimum: DateTime(2022, 12, 10, 4, 05,01),
@@ -140,20 +141,19 @@ class _LiveLineChart2State extends SampleViewState {
                 majorGridLines: const MajorGridLines(width: 0),
                 //Hide the axis line of x-axis
                 axisLine: const AxisLine(width: 0),
-               // desiredIntervals: 200,
-              //  interval: 200,
-                  minimum: 50,
+                // desiredIntervals: 200,
+                //  interval: 200,
+                minimum: 20,
                 maximum: 200,
-
                 //    axisLine: const AxisLine(width: 0),
                 majorTickLines: const MajorTickLines(size: 0)),
-            series: <LineSeries<_ChartData, DateTime>>[
-              LineSeries<_ChartData, DateTime>(
+            series: <ChartSeries<_ChartData, DateTime>>[
+              SplineSeries<_ChartData, DateTime>(
                 onRendererCreated: (ChartSeriesController controller) {
                   _chartSeriesController = controller;
                 },
                 dataSource: chartData!,
-                color: Colors.yellow.shade400,
+                color: Colors.deepOrangeAccent.shade200,
                 xValueMapper: (_ChartData sales, _) => sales.country,
                 yValueMapper: (_ChartData sales, _) => sales.sales,
                 animationDuration: 0,
@@ -167,11 +167,11 @@ class _LiveLineChart2State extends SampleViewState {
   void _updateDataSource(Timer timer) {
     listIndex.add(indexoffset);
     indexoffset = indexoffset+1;
-   if(ii==5){
-     ii=0;
-   }else{
-     ii=ii+1;
-   }
+    if(ii==5){
+      ii=0;
+    }else{
+      ii=ii+1;
+    }
     print("${ii}<<<<<<  ${chartData!.length}  the isCardView is >>>${isCardView}");
     if (isCardView != null) {
 
@@ -180,16 +180,16 @@ class _LiveLineChart2State extends SampleViewState {
         dt = DateTime(2022, 12, 10, 4, 05,1);
         indexoffset = 0;
         _chartSeriesController?.updateDataSource(removedDataIndexes:<int>[chartData!.length - 1],);
-      //  chartData!.clear();
+        //  chartData!.clear();
         print("------------------------------------------------- near length is ${chartData!.length}");
       }else {
 
         if(indexoffset>80){
-        //  dt = dt.subtract(Duration(milliseconds: 300));
-          dt = dt.add(const Duration(milliseconds: 700));
+          //  dt = dt.subtract(Duration(milliseconds: 300));
+          dt = dt.add(Duration(milliseconds: 700));
           widget.refreshParent();
         }else{
-          dt = dt.add(const Duration(milliseconds: 700));
+          dt = dt.add(Duration(milliseconds: 700));
           widget.refreshParent();
         }
 
@@ -209,17 +209,17 @@ class _LiveLineChart2State extends SampleViewState {
         chartData!.add(new _ChartData(dt, list1[ii]));
       }
 
-        print("before list is>>>> ${ii}");
-        print("LISTING LIST IS ${chartData!.last.country}");
+      print("before list is>>>> ${ii}");
+      print("LISTING LIST IS ${chartData!.last.country}");
       print("LISTING LIST IS >>>  ${chartData!.last.sales}");
-        index = index+1;
-        if(index==19) {
-     //     index = 0;
-        }//_ChartData(time+.5,43 )
+      index = index+1;
+      if(index==19) {
+        //     index = 0;
+      }//_ChartData(time+.5,43 )
       //  time = time+.5;
-        if(time ==9) {
-       //   time = 1.0;
-        }
+      if(time ==9) {
+        //   time = 1.0;
+      }
       if (chartData!.length > 149) {
         print("***************************** yes *********************");
         print("index>  ${index} > ${time} £ is removing at ofo2 ${chartData!.length - 1}");
@@ -228,7 +228,7 @@ class _LiveLineChart2State extends SampleViewState {
           removedDataIndexes: <int>[0],
           addedDataIndexes:  <int>[chartData!.length - 2],//
         );
-      //  chartData!.clear();
+        //  chartData!.clear();
       } else {
 
         print("***************************** NO *********************");

@@ -10,6 +10,7 @@ class Overseer {
   static int ABP_low=0;
   static int ABP_high=0;
   static int RESP=0;
+  static int HR_speedTime=0;
 
 
 

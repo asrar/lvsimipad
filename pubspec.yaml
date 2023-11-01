@@ -40,6 +40,7 @@ dependencies:
   change_app_package_name: ^1.1.0
   firebase_database:
   cloud_firestore: ^4.5.0
+  shared_preferences:
 
 dev_dependencies:
   flutter_test:

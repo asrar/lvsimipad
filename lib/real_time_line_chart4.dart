@@ -136,8 +136,8 @@ class _LiveLineChart4State extends SampleViewState {
 
                 //    axisLine: const AxisLine(width: 0),
                 majorTickLines: const MajorTickLines(size: 0)),
-            series: <LineSeries<_ChartData, DateTime>>[
-              LineSeries<_ChartData, DateTime>(
+            series: <ChartSeries<_ChartData, DateTime>>[
+              SplineSeries<_ChartData, DateTime>(
                 onRendererCreated: (ChartSeriesController controller) {
                   _chartSeriesController = controller;
                 },
