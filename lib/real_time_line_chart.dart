@@ -186,7 +186,7 @@ class _LiveLineChartState extends SampleViewState {
 
   @override
   void dispose() {
-    timer?.cancel();
+    // timer?.cancel();
     chartData!.clear();
     _chartSeriesController = null;
     super.dispose();
@@ -205,71 +205,70 @@ class _LiveLineChartState extends SampleViewState {
     super.initState();
   }
   _LiveLineChartState() {
+    // if (Overseer.HR >= 80) {
+    //   speedTime = 33;
+    //   print('speed time 1 = $speedTime');
+    // } else if (Overseer.HR >= 70) {
+    //   speedTime = 250;
+    //   print('speed time 2 = $speedTime');
+    // } else if (Overseer.HR >= 60) {
+    //   speedTime = 300;
+    //   print('speed time 3 = $speedTime');
+    // } else if (Overseer.HR >= 50) {
+    //   speedTime = 350;
+    //   print(' speed time 4 = $speedTime');
+    // } else if (Overseer.HR >= 40) {
+    //   speedTime = 400;
+    //   print('speed time 5 = $speedTime');
+    // } else if (Overseer.HR >= 30) {
+    //   speedTime = 450;
+    //   print('speed time 6 = $speedTime');
+    // } else if(Overseer.HR >= 20){
+    //   speedTime = 500;
+    //   print('speed time 7 = $speedTime');
+    // }
     if (Overseer.HR >= 80) {
       speedTime = 200;
       print('speed time 1 = $speedTime');
-    } else if (Overseer.HR >= 70) {
-      speedTime = 250;
-      print('speed time 2 = $speedTime');
-    } else if (Overseer.HR >= 60) {
-      speedTime = 300;
-      print('speed time 3 = $speedTime');
-    } else if (Overseer.HR >= 50) {
-      speedTime = 350;
-      print(' speed time 4 = $speedTime');
-    } else if (Overseer.HR >= 40) {
-      speedTime = 400;
-      print('speed time 5 = $speedTime');
-    } else if (Overseer.HR >= 30) {
-      speedTime = 450;
-      print('speed time 6 = $speedTime');
+      if (Overseer.HR >= 70) {
+        speedTime = 250;
+        print('speed time 2 = $speedTime');
+        if (Overseer.HR >= 60) {
+          speedTime = 300;
+          print('speed time 3 = $speedTime');
+          if (Overseer.HR >= 50) {
+            speedTime = 350;
+            print('speed time 4 = $speedTime');
+            if (Overseer.HR >= 40) {
+              speedTime = 400;
+              print('speed time 5 = $speedTime');
+              if (Overseer.HR >= 30) {
+                speedTime = 200;
+                print('speed time 6 = $speedTime');
+              } else {
+                speedTime = 250;
+                print('speed time 1 = $speedTime');
+              }
+            } else {
+              speedTime = 300;
+              print('speed time 2 = $speedTime');
+            }
+          } else {
+            speedTime = 350;
+            print('speed time 3 = $speedTime');
+          }
+        } else {
+          speedTime = 400;
+          print('speed time 5 = $speedTime');
+        }
+      } else {
+        speedTime = 450;
+        print('speed time 6 = $speedTime');
+      }
     } else {
-      speedTime = 500;
-      print('speed time 7 = $speedTime');
+      speedTime = 200;
+      print('speed time 7 = $Overseer.HR_speedTime');
     }
-
-    // if (Overseer.HR >= 80) {
-    //   speedTime = 200;
-    //   print('speed time 1 = $speedTime');
-    //   if (Overseer.HR >= 70) {
-    //     speedTime = 220;
-    //     print('speed time 2 = $speedTime');
-    //     if (Overseer.HR >= 60) {
-    //       speedTime = 240;
-    //       print('speed time 3 = $speedTime');
-    //       if (Overseer.HR >= 50) {
-    //         speedTime = 260;
-    //         print('speed time 4 = $speedTime');
-    //         if (Overseer.HR >= 40) {
-    //           speedTime = 280;
-    //           print('speed time 5 = $speedTime');
-    //           if (Overseer.HR >= 30) {
-    //             speedTime = 300;
-    //             print('speed time 6 = $speedTime');
-    //           } else {
-    //             speedTime = 300;
-    //             print('speed time 1 = $speedTime');
-    //           }
-    //         } else {
-    //           speedTime = 280;
-    //           print('speed time 2 = $speedTime');
-    //         }
-    //       } else {
-    //         speedTime = 260;
-    //         print('speed time 3 = $speedTime');
-    //       }
-    //     } else {
-    //       speedTime = 240;
-    //       print('speed time 5 = $speedTime');
-    //     }
-    //   } else {
-    //     speedTime = 220;
-    //     print('speed time 6 = $speedTime');
-    //   }
-    // } else {
-    //   speedTime = 200;
-    //   print('speed time 7 = $Overseer.HR_speedTime');
-    // }
     Overseer.HR_speedTime = speedTime;
     print('object...................${Overseer.HR_speedTime}');
     print('object...................${Overseer.HR}');
@@ -296,20 +295,18 @@ class _LiveLineChartState extends SampleViewState {
         Map mm = list[1];
         print("----mm value are >>> okkkkk ${mm.values.toString()}");
         print("----mm value are length >>> okkkkk  ${mm.values.length}");
-        var iter = mm.values.iterator; // get the iterator
-        _LiveLineChartState();
+        var iter = mm.values.iterator;
         while (iter.moveNext()) {
           print("at first");
           // while there is next element
           Map values = iter.current;
-          _LiveLineChartState();
-          Overseer.HR_speedTime;
           Overseer.HR;
           print("at second");
           values.forEach((key, value) {
             print(">>>>>>>>iter current heart_rate > $key *****  $value ");
             if (key.toString().contains("heart_rate")) {
               heartRate = value;
+              timer;
             }
             if (key.toString().contains("rhythm")) {
               if (!runningWaveForm.contains(value.toString())) {
@@ -393,7 +390,6 @@ class _LiveLineChartState extends SampleViewState {
 
   ///Continously updating the data source based on timer
   void _updateDataSource(Timer timer) {
-    // _LiveLineChartState();
     listIndex.add(indexoffset);
     indexoffset = indexoffset + 1;
     if (typeOfWave.contains("Sinus Rhythm")) {
@@ -440,7 +436,6 @@ class _LiveLineChartState extends SampleViewState {
       print(
           "Adding index is >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..  ${index}");
       if (indexoffset == 201) {
-        _LiveLineChartState();
         dt = DateTime(2022, 12, 10, 4, 05, 1);
         indexoffset = 0;
         _chartSeriesController?.updateDataSource(
@@ -451,13 +446,11 @@ class _LiveLineChartState extends SampleViewState {
             "------------------------------------------------- near length is ${chartData!.length}");
       } else {
         if (indexoffset < 100) {
-          _LiveLineChartState();
           print('in side if line 364');
           dt = dt.subtract(const Duration(milliseconds: 300));
           dt = dt.add(const Duration(milliseconds: 700));
           widget.refreshParent();
         } else {
-          _LiveLineChartState();
           print('in side else line 369');
           dt = dt.add(const Duration(milliseconds: 300));
           widget.refreshParent();
@@ -467,7 +460,6 @@ class _LiveLineChartState extends SampleViewState {
           " waveform is>>> ${typeOfWave}  Adding index is ${indexoffset} >>>>>>>>>>>>>>>>>> DATE >>>>>>>>>>>>>>>>>>>>>>>>>. ${dt}");
 
       if (indexoffset < 100) {
-        _LiveLineChartState();
         print('in side if line 378');
         Overseer.HR = heartRate;
         if (ii == typeCount) {
@@ -475,7 +467,6 @@ class _LiveLineChartState extends SampleViewState {
               "FB heart rate 1 with normal ${ii} >> ${dt}   --E  data:${heartRate}");
           chartData!.add(_ChartData(dt, heartRate));
         } else {
-          _LiveLineChartState();
           if (listA.length == ii) {
             ii = ii - 1;
           }
@@ -508,7 +499,6 @@ class _LiveLineChartState extends SampleViewState {
           }
         }
       } else {
-        _LiveLineChartState();
         Overseer.HR = heartRate;
         if (ii == typeCount) {
           print(" FB heart rate 2 is $heartRate");
@@ -545,7 +535,6 @@ class _LiveLineChartState extends SampleViewState {
       print("LISTING LIST IS ${chartData!.last.country}");
       print("LISTING LIST IS >>>  ${chartData!.last.sales}");
       index = index + 1;
-      _LiveLineChartState();
       if (index == 19) {
         //     index = 0;
       } //_ChartData(time+.5,43 )
@@ -571,7 +560,6 @@ class _LiveLineChartState extends SampleViewState {
         _chartSeriesController?.updateDataSource(
           addedDataIndexes: <int>[chartData!.length - 1],
         );
-        _LiveLineChartState();
       }
       //count = count + 1;
 
@@ -611,9 +599,7 @@ class _LiveLineChartState extends SampleViewState {
         }
         j = ii;
       }
-      _LiveLineChartState();
     }
-    _LiveLineChartState();
   }
 
   ///Get the random data
