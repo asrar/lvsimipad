@@ -100,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           children: [
             Container(
-                height: 175,
+                height: 150,
                 color: Colors.black,
                 child: Row(
                   children: [

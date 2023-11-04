@@ -56,27 +56,7 @@ class _LiveLineChart4State extends SampleViewState {
   @override
   void initState() {
     //count = 50;
-    chartData = <_ChartData>[
-      // _ChartData(0, 99),
-      // _ChartData(.5, 33),
-      // _ChartData(1, 43),
-      // _ChartData(1.5, 33),
-      // _ChartData(2, 43),
-      // _ChartData(2.5, 33),
-      // _ChartData(3, 99),
-      // _ChartData(3.5, 33),
-      // _ChartData(4, 43),
-      // _ChartData(4.5, 33),
-      // _ChartData(5, 43),
-      // _ChartData(5.5, 33),
-      // _ChartData(6, 99),
-      // _ChartData(6.5, 33),
-      // _ChartData(7, 43),
-      // _ChartData(7.5, 33),
-      // _ChartData(8, 43),
-      // _ChartData(8.5, 33),
-      // _ChartData(100, 99),
-    ];
+    chartData = <_ChartData>[];
     dref;
     super.initState();
   }
@@ -91,6 +71,11 @@ class _LiveLineChart4State extends SampleViewState {
     return StreamBuilder(
       stream: dref.onValue,
       builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else if (!snapshot.hasData || snapshot.data == null) {
+          return Center(child: const CircularProgressIndicator()); // Show a progress indicator if data is null.
+        }
         Map<dynamic, dynamic> map =
         snapshot.data?.snapshot.value as dynamic;
         List<dynamic> list = [];
