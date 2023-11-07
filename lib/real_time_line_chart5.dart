@@ -31,9 +31,12 @@ class _LiveLineChart5State extends SampleViewState {
   int indexoffset = 0;
   int index = 0;
   int spo2 = 0;
+  int lvPressure = 0;
   List<dynamic> listIndex =  List.empty(growable: true);
   List list = [80, 90, 75, 70, 78, 76, 73];
   List list1 = [80, 90, 75, 70, 78, 76, 73];
+  List list2 = [80, 90, 75, 70, 78, 76, 73];
+  List list12 = [80, 90, 75, 70, 78, 76, 73];
   DateTime dt = DateTime(2022, 12, 10, 4, 05,1);
   int ii=0;
   _LiveLineChart5State() {
@@ -88,11 +91,14 @@ class _LiveLineChart5State extends SampleViewState {
         print("----mm value are >>> ${mm.values.toString()}");
         String stn = mm.values.last["spo2"].toString();
         spo2 = int.parse(stn);
+        String stn2 = mm.values.last["lv_pressure"].toString();
+        lvPressure = int.parse(stn2);
+        Overseer.lvPressure = lvPressure;
+        String stn3 = mm.values.last["lv_pressure"].toString();
+        lvPressure = int.parse(stn2);
+        Overseer.lvPressure = lvPressure;
         print("HR value is here as HR ${stn}");
         print('>>This is List${list.toString()}');
-
-
-
         print('This is List${list.toString()}');
         /// This is Example how to access the specific index
         ///list[1]['readings']['heart_rate'].toString() etc.
@@ -183,14 +189,14 @@ class _LiveLineChart5State extends SampleViewState {
       if(indexoffset < 150){
         Overseer.SPO2 = list1[1];
         if(ii==0 || ii==2 || ii==4){
-          chartData!.add(new _ChartData(dt, spo2));
+          chartData!.add(_ChartData(dt, spo2));
         }else{
-          chartData!.add(new _ChartData(dt, list1[ii]));
+          chartData!.add(_ChartData(dt, list1[ii]));
         }
 
       }else{
         Overseer.SPO2 = list[3];
-        chartData!.add(new _ChartData(dt, list1[ii]));
+        chartData!.add(_ChartData(dt, list1[ii]));
       }
 
       print("before list is>>>> ${ii}");

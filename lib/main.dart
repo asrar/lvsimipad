@@ -100,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           children: [
             Container(
-                height: 150,
+                height: 130,
                 color: Colors.black,
                 child: Row(
                   children: [
@@ -143,7 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 )),
             Container(
-                height: 135,
+                height: 130,
                 color: Colors.black,
                 child: Row(
                   children: [
@@ -174,14 +174,14 @@ class _MyHomePageState extends State<MyHomePage> {
                               style: (const TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 36,
-                                  color: Colors.green)),
+                                  color: Colors.yellow)),
                             ),
                           ],
                         )),
                   ],
                 )),
             Container(
-                height: 140,
+                height: 130,
                 color: Colors.black,
                 child: Row(
                   children: [
@@ -200,26 +200,26 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: Column(
                           children: [
                             Text(
-                              "${Overseer.ABP_high}/${Overseer.ABP_low}",
+                              "${Overseer.abdia}/${Overseer.absys} " ,
                               style: (const TextStyle(
                                   fontWeight: FontWeight.normal,
-
                                   fontSize: 16,
                                   color: Colors.yellow)),
                             ),
                             Text(
-                              "${Overseer.ABP_low}/${Overseer.ABP_high}",
-                              style: (const TextStyle(
+                              "${Overseer.abdia}/${Overseer.abdia}",
+                              style: ( TextStyle(
                                   fontWeight: FontWeight.w500,
-                                  fontSize: 30,
-                                  color: Colors.green)),
+                                  fontSize: 26,
+                                  color: Colors.red.shade400)),
                             ),
                           ],
                         )),
                   ],
-                )),
+                )
+            ),
             Container(
-                height: 140,
+                height: 130,
                 color: Colors.black,
                 child: Row(
                   children: [
@@ -258,7 +258,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 )),
             Container(
-                height: 215,
+                height: 130,
                 color: Colors.black,
                 child: Row(
                   children: [
@@ -289,7 +289,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               style: (const TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 36,
-                                  color: Colors.green)),
+                                  color: Colors.white)),
                             ),
                           ],
                         )),
@@ -303,13 +303,10 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   refresh() {
-
       print("setting state only for activity Log  at");
-
       setState(() {
         print("refresh 1 called");
       });
-
   }
   refresh2() {
     print("setting state only for activity Log  at");
@@ -318,41 +315,29 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
   refresh3() {
-
     print("setting state only for activity Log  at");
-
     setState(() {
       print("refresh 3 called");
     });
-
   }
   refresh5() {
-
     print("setting state only for activity Log  at");
-
     setState(() {
       print("refresh 5 called");
     });
-
   }
   refresh4() {
-
     print("setting state only for activity Log  at");
-
     setState(() {
       print("refresh 3 called");
     });
-
   }
 
 
   refreshStepLine() {
-
     print("setting state only for activity Log  at");
-
     setState(() {
       print("refreshStepLine  3 called");
     });
-
   }
 }

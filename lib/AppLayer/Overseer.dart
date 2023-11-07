@@ -45,11 +45,21 @@ class Overseer {
 
   static int HR = 0;
   static String Pressure = '';
+  static String abpMean = '';
+  static int lvPressure = 0;
+  static String lvpMean = '';
+  static String absys = '';
+  static String abdia = '';
   static int SPO2 = 0;
   static int ABP_low = 0;
+  static int ABP_sys = 0;
+  static int lvp = 0;
+  static int ABP_dia = 0;
   static int ABP_high = 0;
   static int RESP = 0;
   static int HR_speedTime = 200;
+  static int HR_speedTime2 = 400;
+  static int HR_speedTime3 = 200;
 
   // Create a StreamController for heart rate updates
   final _heartRateController = StreamController<dynamic>.broadcast();

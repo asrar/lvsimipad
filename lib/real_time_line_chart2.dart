@@ -38,7 +38,7 @@ class _LiveLineChart2State extends SampleViewState {
   int ii=0;
   _LiveLineChart2State() {
     timer =
-        Timer.periodic( Duration(milliseconds: Overseer.HR_speedTime+200), _updateDataSource);
+        Timer.periodic( Duration(milliseconds: 400), _updateDataSource);
   }
 
   Timer? timer;
@@ -66,8 +66,108 @@ class _LiveLineChart2State extends SampleViewState {
 
   @override
   Widget build(BuildContext context) {
+
+    // if (timer == null) {
+    //   // Calculate the initial timer interval.
+    //   Overseer.HR_speedTime2 = calculateSpeedTime();
+    //
+    //   // Create a timer with the initial interval.
+    //   timer = Timer.periodic(Duration(milliseconds: Overseer.HR_speedTime2), _updateDataSource);
+    // }
+    if (timer == null) {
+      // Calculate the initial timer interval.
+      Overseer.HR_speedTime3 = calculateSpeedTime();
+
+      // Create a timer with the initial interval.
+      timer = Timer.periodic(
+          Duration(milliseconds: Overseer.HR_speedTime3), _updateDataSource);
+    }
+
     return _buildLiveLineChart2();
   }
+
+  /// Function to calculate the new speedTime based on Overseer.HR
+  int calculateSpeedTime() {
+    int newSpeedTime = 400;  // Default value, change this to your desired default.
+
+    // Calculate new speedTime based on Overseer.HR
+    if (Overseer.HR >= 150) {
+      newSpeedTime = 130;
+    } else if (Overseer.HR >= 140) {
+      newSpeedTime = 170;
+    } else if (Overseer.HR >= 130) {
+      newSpeedTime = 200;
+    } else if (Overseer.HR >= 120) {
+      newSpeedTime = 240;
+    } else if (Overseer.HR >= 120) {
+      newSpeedTime = 270;
+    } else if (Overseer.HR >= 110) {
+      newSpeedTime = 300;
+    } else if (Overseer.HR >= 100) {
+      newSpeedTime = 340;
+    } else if (Overseer.HR >= 90) {
+      newSpeedTime = 370;
+    } else if (Overseer.HR >= 80) {
+      newSpeedTime = 400;
+    } else if (Overseer.HR >= 70) {
+      newSpeedTime = 450;
+    } else if (Overseer.HR >= 60) {
+      newSpeedTime = 500;
+    } else if (Overseer.HR >= 50) {
+      newSpeedTime = 550;
+    } else if (Overseer.HR >= 40) {
+      newSpeedTime = 600;
+    } else if (Overseer.HR >= 30) {
+      newSpeedTime = 650;
+    } else if (Overseer.HR >= 20) {
+      newSpeedTime = 700;
+    }
+    return newSpeedTime;
+  }
+  // int calculateSpeedTime() {
+  //   int newSpeedTime =
+  //   200; // Default value, change this to your desired default.
+  //
+  //   // Calculate new speedTime based on Overseer.HR
+  //   if (Overseer.HR >= 150) {
+  //     newSpeedTime = 40;
+  //   } else if (Overseer.HR >= 140) {
+  //     newSpeedTime = 60;
+  //   } else if (Overseer.HR >= 130) {
+  //     newSpeedTime = 80;
+  //   } else if (Overseer.HR >= 120) {
+  //     newSpeedTime = 100;
+  //   } else if (Overseer.HR >= 120) {
+  //     newSpeedTime = 120;
+  //   } else if (Overseer.HR >= 110) {
+  //     newSpeedTime = 140;
+  //   } else if (Overseer.HR >= 100) {
+  //     newSpeedTime = 160;
+  //   } else if (Overseer.HR >= 90) {
+  //     newSpeedTime = 180;
+  //   } else if (Overseer.HR >= 80) {
+  //     newSpeedTime = 200;
+  //   } else if (Overseer.HR >= 70) {
+  //     newSpeedTime = 250;
+  //   } else if (Overseer.HR >= 60) {
+  //     newSpeedTime = 300;
+  //   } else if (Overseer.HR >= 50) {
+  //     newSpeedTime = 350;
+  //   } else if (Overseer.HR >= 40) {
+  //     newSpeedTime = 400;
+  //   } else if (Overseer.HR >= 30) {
+  //     newSpeedTime = 450;
+  //   } else if (Overseer.HR >= 20) {
+  //     newSpeedTime = 500;
+  //   } else if (Overseer.HR >= 10) {
+  //     newSpeedTime = 550;
+  //   } else if (Overseer.HR < 10) {
+  //     newSpeedTime = 600;
+  //   }
+  //
+  //   return newSpeedTime;
+  // }
+
 
   /// Returns the realtime Cartesian line chart.
   StreamBuilder _buildLiveLineChart2() {
@@ -84,16 +184,12 @@ class _LiveLineChart2State extends SampleViewState {
         List<dynamic> list = [];
         list.clear();
         list = map.values.toList();
-
         Map mm = list[1];
         print("----mm value are >>> ${mm.values.toString()}");
         String stn = mm.values.last["spo2"].toString();
         spo2 = int.parse(stn);
         print("HR value is here as HR ${stn}");
         print('>>This is List${list.toString()}');
-
-
-
         print('This is List${list.toString()}');
         /// This is Example how to access the specific index
         ///list[1]['readings']['heart_rate'].toString() etc.
@@ -110,17 +206,6 @@ class _LiveLineChart2State extends SampleViewState {
                 interval: 60,
                 maximum: DateTime(2022, 12, 10, 4, 06,01),
                 majorTickLines: const MajorTickLines(size: 0)),
-            // NumericAxis(
-            //     isVisible: true,
-            //
-            //     //Hide the gridlines of x-axis
-            //     majorGridLines: MajorGridLines(width: 0),
-            //     //Hide the axis line of x-axis
-            //     axisLine: AxisLine(width: 0),
-            //   //  desiredIntervals: 10,
-            //
-            //     majorTickLines: const MajorTickLines(size: 0)
-            // ),
             primaryYAxis: NumericAxis(
                 isVisible: true,
                 majorGridLines: const MajorGridLines(width: 0),
@@ -153,7 +238,17 @@ class _LiveLineChart2State extends SampleViewState {
   void _updateDataSource(Timer timer) {
     listIndex.add(indexoffset);
     indexoffset = indexoffset+1;
-   if(ii==5){
+
+    Overseer.HR_speedTime = calculateSpeedTime();
+
+    // Cancel the existing timer and start a new timer with the updated interval.
+    timer.cancel();
+    timer = Timer.periodic(
+        Duration(milliseconds: Overseer.HR_speedTime), _updateDataSource);
+
+
+
+    if(ii==5){
      ii=0;
    }else{
      ii=ii+1;
@@ -162,7 +257,7 @@ class _LiveLineChart2State extends SampleViewState {
     if (isCardView != null) {
 
       print("Adding index is >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..  ${index}");
-      if(indexoffset == 151) {
+      if(indexoffset == 201) {
         dt = DateTime(2022, 12, 10, 4, 05,1);
         indexoffset = 0;
         _chartSeriesController?.updateDataSource(removedDataIndexes:<int>[chartData!.length - 1],);
@@ -170,7 +265,7 @@ class _LiveLineChart2State extends SampleViewState {
         print("------------------------------------------------- near length is ${chartData!.length}");
       }else {
 
-        if(indexoffset>80){
+        if(indexoffset>100){
         //  dt = dt.subtract(Duration(milliseconds: 300));
           dt = dt.add(const Duration(milliseconds: 700));
           widget.refreshParent();

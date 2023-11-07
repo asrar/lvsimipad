@@ -31,13 +31,13 @@ class _LiveLineChart4State extends SampleViewState {
   int indexoffset = 0;
   int index = 0;
   List<dynamic> listIndex =  List.empty(growable: true);
-  List list = [50,110,120,115,50,50];
-  List list1 = [50,140,150,145,50,50];
+  List list = [50,120,125,120,50,50];
+  List list1 = [50,120,125,120,50,50];
   DateTime dt = DateTime(2022, 12, 10, 4, 05,1);
   int ii=0;
   _LiveLineChart4State() {
     timer =
-        Timer.periodic(Duration(milliseconds: 200), _updateDataSource);
+        Timer.periodic(const Duration(milliseconds: 400), _updateDataSource);
   }
 
   Timer? timer;
@@ -74,7 +74,7 @@ class _LiveLineChart4State extends SampleViewState {
         if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else if (!snapshot.hasData || snapshot.data == null) {
-          return Center(child: const CircularProgressIndicator()); // Show a progress indicator if data is null.
+          return const Center(child: CircularProgressIndicator()); // Show a progress indicator if data is null.
         }
         Map<dynamic, dynamic> map =
         snapshot.data?.snapshot.value as dynamic;
@@ -93,31 +93,20 @@ class _LiveLineChart4State extends SampleViewState {
                 minimum: DateTime(2022, 12, 10, 4, 05,01),
                 intervalType: DateTimeIntervalType.seconds,
                 desiredIntervals: 60,
-                axisLine: AxisLine(width: 0),
-                majorGridLines: MajorGridLines(width: 0),
+                axisLine: const AxisLine(width: 0),
+                majorGridLines: const MajorGridLines(width: 0),
                 interval: 60,
                 maximum: DateTime(2022, 12, 10, 4, 06,01),
                 majorTickLines: const MajorTickLines(size: 0)),
-            // NumericAxis(
-            //     isVisible: true,
-            //
-            //     //Hide the gridlines of x-axis
-            //     majorGridLines: MajorGridLines(width: 0),
-            //     //Hide the axis line of x-axis
-            //     axisLine: AxisLine(width: 0),
-            //   //  desiredIntervals: 10,
-            //
-            //     majorTickLines: const MajorTickLines(size: 0)
-            // ),
             primaryYAxis: NumericAxis(
                 isVisible: true,
-                majorGridLines: MajorGridLines(width: 0),
+                majorGridLines: const MajorGridLines(width: 0),
                 //Hide the axis line of x-axis
-                axisLine: AxisLine(width: 0),
+                axisLine: const AxisLine(width: 0),
                // desiredIntervals: 200,
               //  interval: 200,
-                minimum: 50,
-                maximum: 150,
+                minimum: 35,
+                maximum: 200,
 
                 //    axisLine: const AxisLine(width: 0),
                 majorTickLines: const MajorTickLines(size: 0)),
@@ -127,7 +116,7 @@ class _LiveLineChart4State extends SampleViewState {
                   _chartSeriesController = controller;
                 },
                 dataSource: chartData!,
-                color: Colors.red.shade400,
+                color: Colors.white,
                 xValueMapper: (_ChartData sales, _) => sales.country,
                 yValueMapper: (_ChartData sales, _) => sales.sales,
                 animationDuration: 0,
@@ -161,10 +150,10 @@ class _LiveLineChart4State extends SampleViewState {
 
         if(indexoffset>90){
      //     dt = dt.subtract(Duration(milliseconds: 700));
-          dt = dt.add(Duration(milliseconds: 700));
+          dt = dt.add(const Duration(milliseconds: 700));
           widget.refreshParent();
         }else{
-          dt = dt.add(Duration(milliseconds: 500));
+          dt = dt.add(const Duration(milliseconds: 500));
           widget.refreshParent();
         }
 
